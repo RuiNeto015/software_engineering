@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">import Transactions.*;
+import com.orgcom.*;
+
+import java.util.ArrayList;
+
+<span class="nc" id="L6">public class Main {</span>
+    public static void main(String args[]){
+<span class="nc" id="L8">        MarketPlaceLedger marketPlaceLedger = new MarketPlaceLedger();</span>
+<span class="nc" id="L9">        MarketPlaceEntity entity1 = new MarketPlaceEntity(&quot;A&quot;, District.BEJA, &quot;ruaXpto&quot;, &quot;123456789&quot;);</span>
+<span class="nc" id="L10">        MarketPlaceEntity entity2 = new MarketPlaceEntity(&quot;B&quot;, District.BEJA, &quot;ruaXpto&quot;, &quot;123456789&quot;);</span>
+
+<span class="nc" id="L12">        ProductsTransaction p1 =  new ProductsTransaction(entity1, entity2, &quot;AAAA1&quot;);</span>
+<span class="nc" id="L13">        p1.addTransactionLine(new ProductTransactionLine(&quot;Cadeira&quot;, 20, 20, 50, 100));</span>
+
+<span class="nc" id="L15">        ProductsTransaction p2 =  new ProductsTransaction(entity2, entity1, &quot;AAAA2&quot;);</span>
+<span class="nc" id="L16">        p2.addTransactionLine(new ProductTransactionLine(&quot;Mesa&quot;, 2, 20, 5, 100));</span>
+<span class="nc" id="L17">        p2.addTransactionLine(new ProductTransactionLine(&quot;Porta&quot;, 2, 20, 5, 100));</span>
+
+<span class="nc" id="L19">        PaymentTransaction pay1 = new PaymentTransaction(entity2, entity1, &quot;AAAA1&quot;);</span>
+<span class="nc" id="L20">        PaymentTransaction pay2 = new PaymentTransaction(entity1, entity2, &quot;AAAA2&quot;);</span>
+
+<span class="nc" id="L22">        TransactionLine transactionLine1 =  new BasicTransactionLine(&quot;$&quot;, 1000, 1);</span>
+<span class="nc" id="L23">        pay1.addTransactionLine(transactionLine1);</span>
+
+<span class="nc" id="L25">        TransactionLine transactionLine2 =  new BasicTransactionLine(&quot;$&quot;, 111, 1);</span>
+<span class="nc" id="L26">        pay2.addTransactionLine(transactionLine2);</span>
+
+<span class="nc" id="L28">        ArrayList&lt;ProductsTransaction&gt; transactionArrayList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">        transactionArrayList.add(p1);</span>
+<span class="nc" id="L30">        transactionArrayList.add(p2);</span>
+
+<span class="nc" id="L32">        ArrayList&lt;PaymentTransaction&gt; paymentTransactions = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L33">        paymentTransactions.add(pay1);</span>
+<span class="nc" id="L34">        paymentTransactions.add(pay2);</span>
+
+<span class="nc" id="L36">        marketPlaceLedger.addOrderRequest(transactionArrayList);</span>
+<span class="nc" id="L37">        marketPlaceLedger.registerOrderInLedger(paymentTransactions);</span>
+<span class="nc" id="L38">        marketPlaceLedger.printLedger();</span>
+<span class="nc" id="L39">        marketPlaceLedger.generateExpeditionFile();</span>
+<span class="nc" id="L40">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

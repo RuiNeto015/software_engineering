@@ -1,0 +1,157 @@
+{
+  "containers": [
+    {
+      "container": {
+        "district": "Viana do Castelo",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Braga",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Vila Real",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Bragança",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Porto",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Viseu",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Aveiro",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Guarda",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Coimbra",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Castelo Branco",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Leiria",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Lisboa",
+        "usedSpace": 2.5,
+        "orders": [
+          {
+            "order": {
+              "orderId": "20210101_01",
+              "hash": "0a969bd6edde829e22268ff5436a924942e7ec2e1fc6999cd39d6af62a754a2f",
+              "receiver": "Jane Smith",
+              "orderVolume": "2.5",
+              "weight": "7.5"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Santarém",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Portalegre",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Setúbal",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Évora",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Beja",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    },
+    {
+      "container": {
+        "district": "Faro",
+        "usedSpace": 0.0,
+        "orders": [
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Transactions.ProductsTransactionTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-01-20T23:22:17" hostname="LAPTOP-3N6RUJR7" time="0.018">
+  <properties/>
+  <testcase name="getVolumeWith1ProductTransactionLine()" classname="Transactions.ProductsTransactionTest" time="0.001"/>
+  <testcase name="ProductTransactionWithNullReceiver()" classname="Transactions.ProductsTransactionTest" time="0.001"/>
+  <testcase name="getWeightWith1ProductTransactionLine()" classname="Transactions.ProductsTransactionTest" time="0.001"/>
+  <testcase name="getVolumeWith2ProductTransactionLine()" classname="Transactions.ProductsTransactionTest" time="0.002"/>
+  <testcase name="ProductTransactionWithNullSender()" classname="Transactions.ProductsTransactionTest" time="0.001"/>
+  <testcase name="getOrderId()" classname="Transactions.ProductsTransactionTest" time="0.0"/>
+  <testcase name="getWeightWith2ProductTransactionLine()" classname="Transactions.ProductsTransactionTest" time="0.0"/>
+  <testcase name="addTransactionParemeterIsNotInstanceOfProductTransactionLine()" classname="Transactions.ProductsTransactionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

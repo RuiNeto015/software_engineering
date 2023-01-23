@@ -1,0 +1,44 @@
+image: gradle:alpine
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GIT_STRATEGY: clone 
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+stages:
+    - build
+    - test
+    - javadoc
+    - deploy            
+
+build-job:
+    stage: build 
+    script:
+        - echo "Compiling the code..."  
+        - cd OrgComm 
+        - chmod +x gradlew
+        - ./gradlew assemble
+    artifacts:
+        paths:
+            - ./OrgComm/build/libs/*.jar
+  
+test-job:
+    stage: test
+    script:
+        - echo "Running Unit Tests and Static Code analyses..."
+        - cd OrgComm 
+        - chmod +x gradlew
+        - ./gradlew test
+    artifacts:
+        paths:
+            - ./OrgComm/build/reports/*
+            - ./OrgComm/build/customJacocoReportDir/*   
+
+deploy-job:
+    stage: deploy
+    script:
+        - echo "Deploying..."
+    only:
+        - master

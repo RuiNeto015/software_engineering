@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaymentTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">Transactions</a> &gt; <span class="el_source">PaymentTransaction.java</span></div><h1>PaymentTransaction.java</h1><pre class="source lang-java linenums">package Transactions;
+
+import com.orgcom.BasicTransaction;
+import com.orgcom.TransactionLine;
+
+public class PaymentTransaction extends BasicTransaction {
+
+    private String orderId;
+
+    /**
+     * Constructor for PaymentTransaction.
+     * The transaction is created with the date of creation, the sender and the receiver.
+     *
+     * @param sender   the sender of the transaction.
+     * @param receiver the receiver of the transaction.
+     * @param orderId the id of the transaction.
+     * @throws IllegalArgumentException if the sender or receiver is null.
+     */
+    public PaymentTransaction(MarketPlaceEntity sender, MarketPlaceEntity receiver, String orderId) {
+<span class="fc" id="L20">        super(sender, receiver);</span>
+
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if(orderId.isEmpty()){</span>
+<span class="nc" id="L23">            throw new IllegalArgumentException(&quot;OrderId is null&quot;);</span>
+        }
+<span class="fc" id="L25">        this.orderId = orderId;</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Adds a {@link TransactionLine transaction line} to the transaction.
+     * When the {@link TransactionLine transaction line} is added to the transaction, the total value and the
+     * transaction counter are updated.
+     *
+     * @param transactionLine the {@link TransactionLine transaction line} to be added.
+     * @return true if the transaction line was added, false if the transaction line was already added or the counter
+     * is higher than zero.
+     * @throws IllegalArgumentException if the transaction line is null.
+     */
+    @Override
+    public boolean addTransactionLine(TransactionLine transactionLine) {
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if(super.getTransactionCounter() &gt; 0){</span>
+<span class="fc" id="L41">            return false;</span>
+        }
+<span class="fc" id="L43">        return super.addTransactionLine(transactionLine);</span>
+    }
+
+    /**
+     * Getter for the matching orderId.
+     *
+     * @return the matching orderId
+     */
+    public String getOrderId() {
+<span class="fc" id="L52">        return orderId;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

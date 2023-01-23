@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductTransactionLine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">Transactions</a> &gt; <span class="el_source">ProductTransactionLine.java</span></div><h1>ProductTransactionLine.java</h1><pre class="source lang-java linenums">package Transactions;
+
+import com.orgcom.BasicTransactionLine;
+
+public class ProductTransactionLine extends BasicTransactionLine {
+
+    private float volume;
+    private float weight;
+
+    /**
+     * Creates a new ProductTransactionLine line.
+     *
+     * @param itemDescription Item in the transaction line.
+     * @param quantity        Quantity of the item in transaction line.
+     * @param unitPrice       Unit Price of the item in the transaction line.
+     * @param volume          Unit's volume in m3.
+     * @param weight          Unit's weight in Kg.
+     * @throws IllegalArgumentException If any of the arguments are invalid (item description is null or empty,
+     * quantity, volume or weight is less or equal than 0 and unitPrice is negative).
+     */
+    public ProductTransactionLine(String itemDescription, int quantity, double unitPrice, float volume, float weight) {
+<span class="fc" id="L22">        super(itemDescription, quantity, unitPrice);</span>
+
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        if(volume &lt;= 0 || weight &lt;= 0) {</span>
+<span class="fc" id="L25">            throw new IllegalArgumentException(&quot;Invalid arguments&quot;);</span>
+        }
+<span class="fc" id="L27">        this.volume = volume;</span>
+<span class="fc" id="L28">        this.weight = weight;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Getter for the product's total volume.
+     *
+     * @return the product's total volume.
+     */
+    public float getVolume() {
+<span class="fc" id="L37">        return volume;</span>
+    }
+
+    /**
+     * Getter for the product's total weight.
+     *
+     * @return the product's total weight.
+     */
+    public float getWeight() {
+<span class="fc" id="L46">        return weight;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

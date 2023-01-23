@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BasicTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">com.orgcom</a> &gt; <span class="el_source">BasicTransaction.java</span></div><h1>BasicTransaction.java</h1><pre class="source lang-java linenums">package com.orgcom;
+
+import com.orgcom.hashing.HashUtils;
+import com.orgcom.hashing.UnHashableException;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/**
+ * The transaction class provides the functionality of a transaction.
+ */
+public class BasicTransaction implements Transaction {
+
+<span class="fc" id="L15">    private final ArrayList&lt;TransactionLine&gt; transactionLines = new ArrayList&lt;&gt;();</span>
+
+    private final LocalDate dateCreated;
+    private final Entity sender;
+    private final Entity receiver;
+
+<span class="fc" id="L21">    private double totalValue = 0;</span>
+<span class="fc" id="L22">    private int transactionCounter = 0;</span>
+
+    /**
+     * Constructor for Transaction.
+     * The transaction is created with the date of creation, the sender and the receiver.
+     *
+     * @param sender   the sender of the transaction.
+     * @param receiver the receiver of the transaction.
+     * @throws IllegalArgumentException if the sender or receiver is null.
+     */
+<span class="fc" id="L32">    public BasicTransaction(Entity sender, Entity receiver) {</span>
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        if (sender == null || receiver == null) {</span>
+<span class="fc" id="L34">            throw new IllegalArgumentException(&quot;Sender and receiver cannot be null.&quot;);</span>
+        }
+
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(sender == receiver){</span>
+<span class="fc" id="L38">            throw new IllegalArgumentException(&quot;Sender and receiver are the same&quot;);</span>
+        }
+
+<span class="fc" id="L41">        this.sender = sender;</span>
+<span class="fc" id="L42">        this.receiver = receiver;</span>
+<span class="fc" id="L43">        this.dateCreated = LocalDate.now();</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public LocalDate getDateCreated() {
+<span class="nc" id="L51">        return this.dateCreated;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entity getSender() {
+<span class="fc" id="L59">        return this.sender;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entity getReceiver() {
+<span class="fc" id="L67">        return this.receiver;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getTotalValue() {
+<span class="fc" id="L75">        return this.totalValue;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTransactionCounter() {
+<span class="fc" id="L83">        return this.transactionCounter;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean addTransactionLine(TransactionLine transactionLine) {
+
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (transactionLine == null) {</span>
+<span class="nc" id="L93">            throw new IllegalArgumentException(&quot;Transaction line cannot be null.&quot;);</span>
+        }
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (this.getTransactionLine(transactionLine) != null) {</span>
+<span class="nc" id="L97">            return false;</span>
+        }
+
+<span class="fc" id="L100">        this.transactionLines.add(transactionLine);</span>
+<span class="fc" id="L101">        this.totalValue += transactionLine.getTotalPrice();</span>
+<span class="fc" id="L102">        this.transactionCounter++;</span>
+
+<span class="fc" id="L104">        return true;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeTransactionLine(TransactionLine transactionLine) {
+
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (transactionLine == null) {</span>
+<span class="nc" id="L114">            throw new IllegalArgumentException(&quot;Transaction line cannot be null.&quot;);</span>
+        }
+
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (this.getTransactionLine(transactionLine) == null) {</span>
+<span class="nc" id="L118">            return false;</span>
+        }
+
+<span class="nc" id="L121">        this.transactionLines.remove(transactionLine);</span>
+<span class="nc" id="L122">        this.totalValue -= transactionLine.getTotalPrice();</span>
+<span class="nc" id="L123">        this.transactionCounter--;</span>
+
+<span class="nc" id="L125">        return true;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void print() {
+<span class="nc" id="L133">        System.out.println(&quot;  hash: &quot; + HashUtils.getSmallHash(this.getHash()) + &quot; value: &quot; + this.getTotalValue() + &quot; sender: &quot; + this.getSender().getName() + &quot; receiver: &quot; + this.getReceiver().getName());</span>
+<span class="nc" id="L134">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TransactionLine getTransactionLine(TransactionLine transactionLine) {
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        if (transactionLine == null) {</span>
+<span class="nc" id="L142">            throw new IllegalArgumentException(&quot;Transaction line cannot be null.&quot;);</span>
+        }
+
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        for (TransactionLine transactionLineTemp : this.transactionLines) {</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            if (transactionLine.getHash().equals(transactionLineTemp.getHash())) {</span>
+<span class="nc" id="L147">                return transactionLine;</span>
+            }
+<span class="fc" id="L149">        }</span>
+
+<span class="fc" id="L151">        return null;</span>
+    }
+
+    /**
+     * Returns an iterator over elements of type {@link TransactionLine transaction line}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator&lt;TransactionLine&gt; iterator() {
+<span class="fc" id="L161">        return this.transactionLines.iterator();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHash() {
+<span class="fc" id="L169">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L170">        sb.append(this.sender.getUUID());</span>
+<span class="fc" id="L171">        sb.append(this.receiver.getUUID());</span>
+<span class="fc" id="L172">        sb.append(this.dateCreated.toString());</span>
+<span class="fc" id="L173">        sb.append(this.totalValue);</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        for (TransactionLine transactionLine : this.transactionLines) {</span>
+<span class="fc" id="L175">            sb.append(transactionLine.getHash());</span>
+<span class="fc" id="L176">        }</span>
+<span class="fc" id="L177">        return HashUtils.getHash(sb.toString());</span>
+    }
+
+    /**
+     * Returns the string representation of the transaction
+     *
+     * @return the string representation of the transaction
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L187">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L188">        sb.append(&quot;\nTransaction{&quot;);</span>
+<span class="nc" id="L189">        sb.append(&quot;dateModified=&quot;).append(this.dateCreated);</span>
+<span class="nc" id="L190">        sb.append(&quot;, totalValue=&quot;).append(this.totalValue);</span>
+<span class="nc" id="L191">        sb.append(&quot;, transactionLines=&quot;).append(this.transactionLines);</span>
+        try {
+<span class="nc" id="L193">            sb.append(&quot;, hash=&quot;).append(this.getHash()).append('}');</span>
+<span class="nc" id="L194">        } catch (UnHashableException e) {</span>
+<span class="nc" id="L195">            sb.append(&quot;, hash=&quot;).append(e.getMessage()).append('}');</span>
+<span class="nc" id="L196">        }</span>
+<span class="nc" id="L197">        return sb.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

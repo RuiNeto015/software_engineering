@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Expedition.BasicContainerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-01-20T23:22:17" hostname="LAPTOP-3N6RUJR7" time="0.029">
+  <properties/>
+  <testcase name="getUsedSpaceWith2OrdersInTheContainer()" classname="Expedition.BasicContainerTest" time="0.012"/>
+  <testcase name="getUsedSpaceWithEmptyContainer()" classname="Expedition.BasicContainerTest" time="0.002"/>
+  <testcase name="addOrderWithBiggerVolumeThanContainerCapacity()" classname="Expedition.BasicContainerTest" time="0.002"/>
+  <testcase name="getOrdersWithEmptyContainer()" classname="Expedition.BasicContainerTest" time="0.003"/>
+  <testcase name="getContainerDistrict()" classname="Expedition.BasicContainerTest" time="0.002"/>
+  <testcase name="addOrderWithDifferentDestinyDistrict()" classname="Expedition.BasicContainerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

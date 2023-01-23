@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BasicContainer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">Expedition</a> &gt; <span class="el_source">BasicContainer.java</span></div><h1>BasicContainer.java</h1><pre class="source lang-java linenums">package Expedition;
+
+import Transactions.ProductsTransaction;
+import com.orgcom.Block;
+import com.orgcom.District;
+import com.orgcom.Transaction;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class BasicContainer {
+<span class="fc" id="L12">    private int MAX_SIZE = 63;</span>
+    private ArrayList&lt;Block&gt; orders;
+    private District district;
+    private float usedSpace;
+
+    /**
+     * BasicContainer class constructor.
+     *
+     * @param district the container district
+     */
+<span class="fc" id="L22">    public BasicContainer(District district) {</span>
+<span class="fc" id="L23">        this.orders = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">        this.usedSpace = 0;</span>
+<span class="fc" id="L25">        this.district = district;</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Getter for the usedSpace on the container.
+     *
+     * @return the usedSpace on the container
+     */
+    public float getUsedSpace() {
+<span class="fc" id="L34">        return this.usedSpace;</span>
+    }
+
+    /**
+     * Getter for the destination District of the container.
+     *
+     * @return the destination District of the container.
+     */
+    public District getDistrict() {
+<span class="fc" id="L43">        return this.district;</span>
+    }
+
+    private boolean verifyDistrict(String district) {
+<span class="fc" id="L47">        return District.valueOf(district).equals(this.district);</span>
+    }
+
+    /**
+     * Adds an Order to the BasicContainer.
+     *
+     * @param order the order to be added
+     * @return 0 if the order destination district doesn't match the container destination district, 1 if inserted, and
+     * -1 if the container doesn't have space.
+     */
+    public int addOrder(Block order) {
+<span class="fc" id="L58">        Iterator&lt;Transaction&gt; transactionIterator = order.getTransactions();</span>
+<span class="fc" id="L59">        ProductsTransaction productsTransaction = (ProductsTransaction) transactionIterator.next();</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (!verifyDistrict(productsTransaction.getReceiver().getDistrict().toUpperCase())) {</span>
+<span class="fc" id="L62">            return 0;</span>
+        }
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (productsTransaction.getVolume() + this.usedSpace &lt;= this.MAX_SIZE) {</span>
+<span class="fc" id="L65">            this.orders.add(order);</span>
+<span class="fc" id="L66">            this.usedSpace += productsTransaction.getVolume();</span>
+<span class="fc" id="L67">            return 1;</span>
+        }
+<span class="fc" id="L69">        return -1;</span>
+    }
+
+    /**
+     * Getter for the orders inside the container.
+     *
+     * @return the orders iterator
+     */
+    public Iterator&lt;Block&gt; getOrders() {
+<span class="fc" id="L78">        return this.orders.iterator();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

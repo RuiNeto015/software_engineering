@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Transactions.MarketPlaceLedgerTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2022-01-20T23:22:17" hostname="LAPTOP-3N6RUJR7" time="0.083">
+  <properties/>
+  <testcase name="averageNumberOfProductsPerTransactionWith2OrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.005"/>
+  <testcase name="addOrderRequestWithOneProductsTransactionToAdd()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="averageValueOfSalesPerDistrictWith0OrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.002"/>
+  <testcase name="averageValueOfPurchasesPerDistrictWith0OrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.004"/>
+  <testcase name="registeredOrderOutOfOrdersRequestList()" classname="Transactions.MarketPlaceLedgerTest" time="0.004"/>
+  <testcase name="orderRegisteredWith0OrdersToRegist()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="addOrderRequestWithNoProductsTransactionToAdd()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="getOrderRequestWithNonExistanceOrderRequest()" classname="Transactions.MarketPlaceLedgerTest" time="0.002"/>
+  <testcase name="averageTransactionsValueWithEmptyLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.001"/>
+  <testcase name="removeOrderRequestWithNonExistanceOrderRequest()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="averageNumberOfProductsPerTransactionWith0OrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.002"/>
+  <testcase name="addOrderRequestWithTwoProductsTransactionToAdd()" classname="Transactions.MarketPlaceLedgerTest" time="0.002"/>
+  <testcase name="getOrdersCounterWithNoOrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="averageTransactionsValueWithTwoOrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="getOrderRequestWithExistanceOrderRequest()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="getOrdersCounterWithOneOrderInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.005"/>
+  <testcase name="removeOrderRequestWithRemovedOrderRequest()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="averageValueOfSalesPerDistrictWith2OrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.003"/>
+  <testcase name="orderRegisteredWithNoCoveredValue()" classname="Transactions.MarketPlaceLedgerTest" time="0.002"/>
+  <testcase name="averageValueOfPurchasesPerDistrictWith2OrdersInLedger()" classname="Transactions.MarketPlaceLedgerTest" time="0.002"/>
+  <testcase name="addOrderRequestWith2ProductsTransactionWithSameID()" classname="Transactions.MarketPlaceLedgerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

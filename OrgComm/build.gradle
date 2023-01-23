@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'pmd'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+mainClassName = 'Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+pmd {
+    toolVersion = '6.23.0'
+    consoleOutput = true
+    ignoreFailures = false
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
+    rulesMinimumPriority = 5
+}

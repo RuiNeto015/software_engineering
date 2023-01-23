@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Transactions.MarketPlaceEntityTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-01-20T23:22:17" hostname="LAPTOP-3N6RUJR7" time="0.017">
+  <properties/>
+  <testcase name="instantiateMarketPlaceEntityWithNullAddress()" classname="Transactions.MarketPlaceEntityTest" time="0.001"/>
+  <testcase name="getMarketPlaceEntityVat()" classname="Transactions.MarketPlaceEntityTest" time="0.001"/>
+  <testcase name="instantiateMarketPlaceEntityWithNullVat()" classname="Transactions.MarketPlaceEntityTest" time="0.001"/>
+  <testcase name="getMarketPlaceEntityAddress()" classname="Transactions.MarketPlaceEntityTest" time="0.0"/>
+  <testcase name="instantiateMarketPlaceEntityWithEmptyVat()" classname="Transactions.MarketPlaceEntityTest" time="0.001"/>
+  <testcase name="instantiateMarketPlaceEntityWithWrongLenghtVAT()" classname="Transactions.MarketPlaceEntityTest" time="0.003"/>
+  <testcase name="instantiateMarketPlaceEntityWithEmptyAddress()" classname="Transactions.MarketPlaceEntityTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

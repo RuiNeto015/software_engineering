@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Transactions.ProductTransactionLineTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-01-20T23:22:17" hostname="LAPTOP-3N6RUJR7" time="0.024">
+  <properties/>
+  <testcase name="instantiateProductTransactionLineWithNegativeVolume()" classname="Transactions.ProductTransactionLineTest" time="0.001"/>
+  <testcase name="instantiateProductTransactionLineWithNegativeWeight()" classname="Transactions.ProductTransactionLineTest" time="0.001"/>
+  <testcase name="instantiateProductTransactionLineWithVolume0()" classname="Transactions.ProductTransactionLineTest" time="0.004"/>
+  <testcase name="instantiateProductTransactionLineWithWeight0()" classname="Transactions.ProductTransactionLineTest" time="0.012"/>
+  <testcase name="getProductTransactionLineVolume()" classname="Transactions.ProductTransactionLineTest" time="0.001"/>
+  <testcase name="getProductTransactionLineWeight()" classname="Transactions.ProductTransactionLineTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,24 @@
+{
+  "payments": [
+    {
+      "id": "20210101_01",
+      "sender": {
+        "name": "Jane Smith",
+        "address": "street 2",
+        "district": "Lisboa",
+        "vat": "234567890"
+      },
+      "receiver": {
+        "name": "John Doe",
+        "address": "street 1",
+        "district": "Porto",
+        "vat": "123456789"
+      },
+      "payment": {
+        "currency": "€",
+        "quantity": 500,
+        "unitPrice": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BasicOrganization.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">com.orgcom</a> &gt; <span class="el_source">BasicOrganization.java</span></div><h1>BasicOrganization.java</h1><pre class="source lang-java linenums">package com.orgcom;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/**
+ * the BasicOrganization class provides the functionality of a basic organization in the system.
+ */
+public class BasicOrganization implements Organization {
+
+<span class="fc" id="L11">    private final ArrayList&lt;Block&gt; ledger = new ArrayList&lt;Block&gt;();</span>
+<span class="fc" id="L12">    private ArrayList&lt;Transaction&gt; transactions = new ArrayList&lt;Transaction&gt;();</span>
+
+    /**
+     * Creates the organization.
+     * Must {@link Organization#registerTransactionsInLedger() register} (empty) transactions to create the genesys block.
+     */
+<span class="fc" id="L18">    public BasicOrganization() {</span>
+<span class="fc" id="L19">        this.registerTransactionsInLedger();</span>
+<span class="fc" id="L20">    }</span>
+
+    private boolean checkIfTransactionWasAlreadyRegistered(Transaction transaction) {
+<span class="fc" id="L23">        Iterator&lt;Block&gt; blockIterator = this.ledgerIterator();</span>
+
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        while (blockIterator.hasNext()) {</span>
+<span class="fc" id="L26">            Block block = blockIterator.next();</span>
+<span class="fc" id="L27">            Iterator&lt;Transaction&gt; transactionsIterator = block.getTransactions();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">            while (transactionsIterator.hasNext()) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                if (transactionsIterator.next().getHash().equals(transaction.getHash())) {</span>
+<span class="fc" id="L30">                    return true;</span>
+                }
+            }
+<span class="fc" id="L33">        }</span>
+<span class="fc" id="L34">        return false;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean addTransaction(Transaction transaction) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (transaction == null) {</span>
+<span class="nc" id="L43">            throw new IllegalArgumentException(&quot;Transaction cannot be null&quot;);</span>
+        }
+
+<span class="pc bpc" id="L46" title="1 of 4 branches missed.">        if (this.getTransaction(transaction) != null || transaction.getTransactionCounter() &lt;= 0</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                || this.checkIfTransactionWasAlreadyRegistered(transaction)) {</span>
+<span class="fc" id="L48">            return false;</span>
+        }
+
+<span class="fc" id="L51">        this.transactions.add(transaction);</span>
+<span class="fc" id="L52">        return true;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeTransaction(Transaction transaction) {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (transaction == null) {</span>
+<span class="nc" id="L61">            throw new IllegalArgumentException(&quot;Transaction cannot be null&quot;);</span>
+        }
+
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (this.getTransaction(transaction) == null) {</span>
+<span class="fc" id="L65">            return false;</span>
+        }
+
+<span class="nc" id="L68">        return this.transactions.remove(transaction);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Transaction getTransaction(Transaction transaction) {
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (transaction == null) {</span>
+<span class="nc" id="L77">            throw new IllegalArgumentException(&quot;Transaction cannot be null&quot;);</span>
+        }
+
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (this.transactions.indexOf(transaction) &lt; 0) {</span>
+<span class="fc" id="L81">            return null;</span>
+        }
+
+<span class="nc" id="L84">        return this.transactions.get(this.transactions.indexOf(transaction));</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Block getBlock(int index) {
+<span class="nc bnc" id="L92" title="All 4 branches missed.">        if (index &lt; 0 || index &gt;= this.ledger.size()) {</span>
+<span class="nc" id="L93">            throw new IndexOutOfBoundsException(&quot;Index out of bounds&quot;);</span>
+        }
+
+<span class="nc" id="L96">        return this.ledger.get(index);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getBlockCount() {
+<span class="fc" id="L104">        return this.ledger.size();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Block getLastBlock() {
+<span class="fc" id="L112">        return this.ledger.get(this.ledger.size() - 1);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int registerTransactionsInLedger() {
+
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (this.transactions.isEmpty()) {</span>
+<span class="fc" id="L122">            return 0;</span>
+        }
+
+<span class="fc" id="L125">        int count = 0;</span>
+<span class="fc" id="L126">        ArrayList&lt;Transaction&gt; transactionsToBlock = new ArrayList&lt;Transaction&gt;();</span>
+<span class="fc" id="L127">        ArrayList&lt;Transaction&gt; transactionsToRemain = new ArrayList&lt;Transaction&gt;();</span>
+
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (Transaction transaction : this.transactions) {</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">            if (transaction.getSender().getTokens() &gt;= 1) {</span>
+<span class="fc" id="L131">                transactionsToBlock.add(transaction);</span>
+
+<span class="fc" id="L133">                transaction.getSender().spendToken();</span>
+<span class="fc" id="L134">                count++;</span>
+            } else {
+<span class="nc" id="L136">                transactionsToRemain.add(transaction);</span>
+            }
+<span class="fc" id="L138">        }</span>
+
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (transactionsToBlock.isEmpty()) {</span>
+<span class="nc" id="L141">            return 0;</span>
+        }
+
+<span class="fc" id="L144">        this.transactions = transactionsToRemain;</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        this.ledger.add(new BasicBlock(transactionsToBlock, this.ledger.size() &gt; 0 ? this.getLastBlock().getHash() : &quot;0&quot;));</span>
+
+<span class="fc" id="L147">        return count;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isValidLedger() {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        for (int i = 0; i &lt; this.ledger.size() - 1; i++) {</span>
+<span class="nc bnc" id="L156" title="All 4 branches missed.">            if (this.ledger.get(i).wasTampered() || !this.ledger.get(i).getHash().equals(this.ledger.get(i + 1).getPreviousHash())) {</span>
+<span class="nc" id="L157">                return false;</span>
+            }
+        }
+
+<span class="nc" id="L161">        return true;</span>
+    }
+
+    /**
+     * Returns an iterator over elements of type {@link Block Block}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator&lt;Block&gt; ledgerIterator() {
+<span class="fc" id="L171">        return this.ledger.iterator();</span>
+    }
+
+    /**
+     * Returns an iterator over elements of type {@link Transaction Transaction}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator&lt;Transaction&gt; transactionIterator() {
+<span class="nc" id="L181">        return this.transactions.iterator();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void printLedger() {
+<span class="nc" id="L189">        System.out.println(&quot;--------------------------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L190">        System.out.println(&quot;LEDGER&quot;);</span>
+<span class="nc" id="L191">        System.out.println(&quot;--------------------------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L192">        System.out.println(&quot;Number of blocks: &quot; + this.getBlockCount());</span>
+<span class="nc" id="L193">        System.out.println(&quot;Ledger is valid: &quot; + this.isValidLedger());</span>
+<span class="nc" id="L194">        System.out.println(&quot;--------------------------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L195">        System.out.println(&quot;BLOCKS:&quot;);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        for (Block block : this.ledger) {</span>
+<span class="nc" id="L197">            block.print();</span>
+<span class="nc" id="L198">        }</span>
+<span class="nc" id="L199">        System.out.println(&quot;--------------------------------------------------------------------------------------&quot;);</span>
+
+<span class="nc" id="L201">        System.out.println(&quot;TRANSACTIONS TO BE PROCESSED:&quot;);</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        for (Transaction transaction : this.transactions) {</span>
+<span class="nc" id="L203">            transaction.print();</span>
+<span class="nc" id="L204">        }</span>
+
+<span class="nc" id="L206">        System.out.println(&quot;--------------------------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L207">    }</span>
+
+    /**
+     * Returns a string representation of the ledger.
+     *
+     * @return a string representation of the ledger
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L216">        return &quot;BasicOrganization{&quot; +</span>
+                &quot;ledger=&quot; + this.ledger +
+                &quot;, transactions=&quot; + this.transactions +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

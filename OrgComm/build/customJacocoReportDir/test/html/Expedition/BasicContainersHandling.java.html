@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BasicContainersHandling.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OrgComm</a> &gt; <a href="index.source.html" class="el_package">Expedition</a> &gt; <span class="el_source">BasicContainersHandling.java</span></div><h1>BasicContainersHandling.java</h1><pre class="source lang-java linenums">package Expedition;
+
+import Transactions.ProductsTransaction;
+import com.orgcom.BasicBlock;
+import com.orgcom.Block;
+import com.orgcom.Transaction;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class BasicContainersHandling {
+    private ArrayList&lt;BasicContainer&gt; containers;
+    private FileWriter writer;
+
+    /**
+     * ContainersHandling class constructor.
+     *
+     * @param filepath the filepath for the json destination
+     */
+<span class="nc" id="L22">    public BasicContainersHandling(String filepath) {</span>
+<span class="nc" id="L23">        this.containers = new ArrayList&lt;&gt;();</span>
+        try {
+<span class="nc" id="L25">            this.writer = new FileWriter(filepath);</span>
+<span class="nc" id="L26">        } catch (IOException e) {</span>
+<span class="nc" id="L27">            e.printStackTrace();</span>
+<span class="nc" id="L28">        }</span>
+<span class="nc" id="L29">    }</span>
+
+    /**
+     * Adds a Container.
+     *
+     */
+    public void addContainer(BasicContainer container) {
+<span class="nc" id="L36">        this.containers.add(container);</span>
+<span class="nc" id="L37">    }</span>
+
+    private void writeToJson(String content) {
+        try {
+<span class="nc" id="L41">            this.writer.write(content);</span>
+<span class="nc" id="L42">        } catch (IOException e) {</span>
+<span class="nc" id="L43">            e.printStackTrace();</span>
+<span class="nc" id="L44">        }</span>
+<span class="nc" id="L45">    }</span>
+
+    /**
+     * Creates a json file with all the containers info.
+     *
+     */
+    public void exportToJson() {
+<span class="nc" id="L52">        writeToJson(&quot;{\n&quot;);</span>
+<span class="nc" id="L53">        writeToJson(&quot;\&quot;containers\&quot;: [\n&quot;);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        for (int i = 0; i &lt; this.containers.size(); i++) {</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            if (i != 0) {</span>
+<span class="nc" id="L56">                writeToJson(&quot;,&quot;);</span>
+            }
+<span class="nc" id="L58">            writeToJson(&quot;{\&quot;container\&quot;: {\n&quot;);</span>
+<span class="nc" id="L59">            writeToJson(&quot;\&quot;district\&quot;: \&quot;&quot; + this.containers.get(i).getDistrict() + &quot;\&quot;,\n&quot;);</span>
+<span class="nc" id="L60">            writeToJson(&quot;\&quot;usedSpace\&quot;: &quot; + this.containers.get(i).getUsedSpace() + &quot;,\n&quot;);</span>
+<span class="nc" id="L61">            writeToJson(&quot; \&quot;orders\&quot;: [\n&quot;);</span>
+
+<span class="nc" id="L63">            Iterator&lt;Block&gt; it = this.containers.get(i).getOrders();</span>
+<span class="nc" id="L64">            boolean flag = true;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            while (it.hasNext()) {</span>
+<span class="nc" id="L66">                BasicBlock basicBlock = (BasicBlock) it.next();</span>
+<span class="nc" id="L67">                Iterator&lt;Transaction&gt; transactionIterator = basicBlock.getTransactions();</span>
+<span class="nc" id="L68">                ProductsTransaction productsTransaction = (ProductsTransaction) transactionIterator.next();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                if (flag != true) {</span>
+<span class="nc" id="L70">                    writeToJson(&quot;,&quot;);</span>
+                }
+<span class="nc" id="L72">                flag = false;</span>
+<span class="nc" id="L73">                writeToJson(&quot;{ \&quot;order\&quot;: {\n&quot;);</span>
+<span class="nc" id="L74">                writeToJson(&quot;\&quot;orderId\&quot;: \&quot;&quot; + productsTransaction.getOrderId() + &quot;\&quot;,\n&quot;);</span>
+<span class="nc" id="L75">                writeToJson(&quot;\&quot;hash\&quot;: \&quot;&quot; + productsTransaction.getHash() + &quot;\&quot;,\n&quot;);</span>
+<span class="nc" id="L76">                writeToJson(&quot;\&quot;receiver\&quot;: \&quot;&quot; + productsTransaction.getReceiver().getName() + &quot;\&quot;,&quot; +</span>
+                        &quot;\n&quot;);
+<span class="nc" id="L78">                writeToJson(&quot;\&quot;orderVolume\&quot;: \&quot;&quot; + productsTransaction.getVolume() + &quot;\&quot;,\n&quot;);</span>
+<span class="nc" id="L79">                writeToJson(&quot;\&quot;weight\&quot;: \&quot;&quot; + productsTransaction.getWeight() + &quot;\&quot;\n&quot;);</span>
+<span class="nc" id="L80">                writeToJson(&quot;}}\n&quot;);</span>
+<span class="nc" id="L81">            }</span>
+<span class="nc" id="L82">            writeToJson(&quot;]\n&quot;);</span>
+<span class="nc" id="L83">            writeToJson(&quot;}}\n&quot;);</span>
+        }
+<span class="nc" id="L85">        writeToJson(&quot;]\n&quot;);</span>
+<span class="nc" id="L86">        writeToJson(&quot;}&quot;);</span>
+        try {
+<span class="nc" id="L88">            this.writer.close();</span>
+<span class="nc" id="L89">        } catch (IOException e) {</span>
+<span class="nc" id="L90">            e.printStackTrace();</span>
+<span class="nc" id="L91">        }</span>
+<span class="nc" id="L92">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
